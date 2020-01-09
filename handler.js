@@ -8,11 +8,11 @@ import request from 'request';
 // Coz exposing the AWS keys to public is not good
 import config from './config.json';
 
-AWS.config.update({
-  accessKeyId: config.aws.accessKeyId,
-  secretAccessKey: config.aws.secretAccessKey,
-  region: config.aws.region
-});
+// AWS.config.update({
+//   accessKeyId: config.aws.accessKeyId,
+//   secretAccessKey: config.aws.secretAccessKey,
+//   region: config.aws.region
+// });
 
 // Instatiating the SES from AWS SDK
 let ses = new AWS.SES();
@@ -102,6 +102,10 @@ module.exports.sendMail = (event, context, callback) => {
     },
     Message: {
       Body: {
+        Html: {
+          Data: bodyData,
+          Charset: bodyCharset
+        },
         Text: {
           Data: bodyData,
           Charset: bodyCharset
